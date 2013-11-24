@@ -38,7 +38,7 @@ public class BungeeCordPorter {
 			pending.add(player);
 		}
 		
-		player.sendMessage(Constants.INFO_PREFIX + "Take you to " + serverName + ".");
+		player.sendMessage(Constants.INFO_PREFIX + "Taking you to " + serverName + ".");
 		parent.getLogger().info(player.getName() + " will be teleported to " + serverName + ".");
 		
 		try {
@@ -53,7 +53,7 @@ public class BungeeCordPorter {
 			player.sendMessage(Constants.ERROR_PREFIX + "Connector throws an exception. See console for further information.");
 		} catch (TimeoutException e) {
 			parent.getLogger().warning("Time out while taking " + player.getName() + " to " + serverName + "!");
-			player.sendMessage(Constants.WARNING_PREFIX + "BungeeCord tooks to long to teleport you.");
+			player.sendMessage(Constants.WARNING_PREFIX + "BungeeCord took to long to teleport you.");
 		} finally {
 			synchronized (pending) {
 				pending.remove(player);
