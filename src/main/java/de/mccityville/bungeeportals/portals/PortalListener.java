@@ -23,9 +23,8 @@ public class PortalListener implements Listener {
 		Location from = e.getFrom(), to = e.getTo();
 		
 		if ((from.getBlockX() != to.getBlockX() || from.getBlockZ() != to.getBlockZ()) && from.getWorld().equals(to.getWorld())) {
+			Vector toVec = to.toVector();
 			for (Portal portal : pm.getPortals(to.getWorld())) {
-				Vector toVec = to.toVector();
-				
 				if (portal.getMinPos().getX() <= toVec.getX() && toVec.getX() <= portal.getMaxPos().getX() &&
 						portal.getMinPos().getY() <= toVec.getY() && toVec.getY() <= portal.getMaxPos().getY() &&
 						portal.getMinPos().getZ() <= toVec.getZ() && toVec.getZ() <= portal.getMaxPos().getZ()) {
