@@ -88,6 +88,8 @@ public class BpCommand implements CommandExecutor {
 			}
 			sb.insert(0, Constants.INFO_COLOR);
 			sender.sendMessage(sb.toString());
+			
+			return true;
 		}
 		
 		sender.sendMessage(Constants.ERROR_PREFIX + "Invalid command usage.");
