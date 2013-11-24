@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import com.google.common.collect.ImmutableList;
@@ -19,18 +20,24 @@ public class BungeePortalConfiguration implements ConfigurationSerializable {
 	private final List<Portal> portals = Lists.newArrayList();
 	
 	public void addPortal(Portal portal) {
+		Validate.notNull(portal);
+		
 		synchronized (portals) {
 			portals.add(portal);
 		}
 	}
 	
 	public void addPortals(Collection<Portal> portals) {
+		Validate.notEmpty(portals);
+		
 		synchronized (portals) {
 			this.portals.addAll(portals);
 		}
 	}
 	
 	public void removePortal(Portal portal) {
+		Validate.notNull(portal);
+		
 		synchronized (portals) {
 			portals.remove(portal);
 		}
