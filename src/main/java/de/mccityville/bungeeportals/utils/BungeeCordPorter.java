@@ -4,11 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.logging.Level;
 
 import org.bukkit.entity.Player;
 
@@ -28,11 +24,11 @@ public class BungeeCordPorter {
 		this.parent = parent;
 	}
 	
-	public void changeServer(Player player, String serverName) {
+	public FutureTask<Void> changeServer(Player player, String serverName) {
 		synchronized (pending) {
 			if (pending.contains(player)) {
 				player.sendMessage(Constants.WARNING_PREFIX + "Please wait until your current teleport is complete.");
-				return;
+				return null;
 			}
 			
 			pending.add(player);
@@ -44,16 +40,7 @@ public class BungeeCordPorter {
 		try {
 			FutureTask<Void> task = new FutureTask<Void>(new PortThread(player, serverName));
 			task.run();
-			task.get(10, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			parent.getLogger().log(Level.SEVERE, e.getMessage(), e);
-			player.sendMessage(Constants.ERROR_PREFIX + "Connector interrupted. See console for further information.");
-		} catch (ExecutionException e) {
-			parent.getLogger().log(Level.SEVERE, e.getMessage(), e);
-			player.sendMessage(Constants.ERROR_PREFIX + "Connector throws an exception. See console for further information.");
-		} catch (TimeoutException e) {
-			parent.getLogger().warning("Time out while taking " + player.getName() + " to " + serverName + "!");
-			player.sendMessage(Constants.WARNING_PREFIX + "BungeeCord tooks to long to teleport you.");
+			return task;
 		} finally {
 			synchronized (pending) {
 				pending.remove(player);

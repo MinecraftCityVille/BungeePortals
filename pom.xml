@@ -55,6 +55,7 @@
 				<configuration>
 					<pluginYaml>
 						<main>de.mccityville.bungeeportals.BungeePortalsPlugin</main>
+						<load>POSTWORLD</load>
 						<depend>
 							<depend>WorldEdit</depend>
 						</depend>
