@@ -34,7 +34,7 @@ public class BungeeCordPorter {
 			pending.add(player);
 		}
 		
-		player.sendMessage(Constants.INFO_PREFIX + "Take you to " + serverName + ".");
+		player.sendMessage(Constants.INFO_PREFIX + "Taking you to " + serverName + ".");
 		parent.getLogger().info(player.getName() + " will be teleported to " + serverName + ".");
 		
 		try {
