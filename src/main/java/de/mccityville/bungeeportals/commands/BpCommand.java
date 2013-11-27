@@ -24,12 +24,12 @@ public class BpCommand implements CommandExecutor {
 	}
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Constants.ERROR_PREFIX + "You must execute this command as a player.");
+			return true;
+		}
+
 		if (args.length == 2 && "create".equalsIgnoreCase(args[0])) {
-			if (!(sender instanceof Player)) {
-				sender.sendMessage(Constants.ERROR_PREFIX + "You must execute this command as a player.");
-				return true;
-			}
-			
 			if (!sender.hasPermission("bungeeportals.admin.create")) {
 				sender.sendMessage(Constants.ERROR_PREFIX + "No permission to execute this command.");
 				return true;
@@ -51,10 +51,6 @@ public class BpCommand implements CommandExecutor {
 			
 			return true;
 		} else if (args.length == 1 && "list".equalsIgnoreCase(args[0])) {
-			if (!(sender instanceof Player)) {
-				sender.sendMessage(Constants.ERROR_PREFIX + "You must execute this command as a player.");
-				return true;
-			}
 			
 			if (!sender.hasPermission("bungeeportals.admin.list")) {
 				sender.sendMessage(Constants.ERROR_PREFIX + "No permission to execute this command.");
